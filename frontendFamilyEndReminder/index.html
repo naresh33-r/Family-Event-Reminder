@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Event Reminder</title>
+    <link rel="icon" href="family.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Family Event Reminder</h1>
+
+    <div class="card">
+        <h2>Add Family Member</h2>
+        <input type="text" id="name" placeholder="Name">
+        <input type="text" id="email" placeholder="Email ID">
+        <input type="text" id="relation" placeholder="Relation">
+        <button onclick="addMember()">Add Member</button>
+    </div>
+
+    <div class="card">
+        <h2>Add Family Event</h2>
+        <input type="text" id="eventName" placeholder="Event Name">
+        <input type="date" id="eventDate">
+        <input type="text" id="memberId" placeholder="Member ID">
+        <button onclick="addEvent()">Add Event</button>
+    </div>
+</div>
+
+<script>
+function addMember() {
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let relation = document.getElementById("relation").value;
+
+    fetch("http://localhost:8080/add/familymember", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `name=${name}&EmailId=${email}&Relation=${relation}`
+    })
+    .then(res => res.text())
+    .then(data => alert(data))
+    .catch(err => console.error(err));
+}
+
+function addEvent() {
+    let eventName = document.getElementById("eventName").value;
+    let eventDate = document.getElementById("eventDate").value;
+    let memberId = document.getElementById("memberId").value;
+
+    fetch("http://localhost:8080/addEvent", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `eventName=${eventName}&eventDate=${eventDate}&memberId=${memberId}`
+    })
+    .then(res => res.text())
+    .then(data => alert(data))
+    .catch(err => console.error(err));
+}
+</script>
+
+</body>
+</html>
