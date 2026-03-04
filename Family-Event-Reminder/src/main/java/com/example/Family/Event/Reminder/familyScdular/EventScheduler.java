@@ -21,7 +21,7 @@ public class EventScheduler {
 
     // Every day morning 9 AM
     @Scheduled(cron = "0 17 9 * * ?")
-
+    mvn -version
     public void sendEventReminder() {
 
         LocalDate today = LocalDate.now();
