@@ -17,7 +17,10 @@ import java.util.List;
 public class familyController {
 @Autowired
 familyService familyService;
-
+    @GetMapping("/")
+    public String home(){
+        return "Application Running";
+    }
 
     @GetMapping("familyMem")
     public List<familyMember> availablefamilyMember(){

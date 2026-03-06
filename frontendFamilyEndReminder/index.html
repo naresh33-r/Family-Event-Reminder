@@ -35,7 +35,7 @@ function addMember() {
     let email = document.getElementById("email").value;
     let relation = document.getElementById("relation").value;
 
-    fetch("http://localhost:8080/add/familymember", {
+    fetch("/add/familymember", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
@@ -52,7 +52,7 @@ function addEvent() {
     let eventDate = document.getElementById("eventDate").value;
     let memberId = document.getElementById("memberId").value;
 
-    fetch("http://localhost:8080/addEvent", {
+    fetch("/addEvent", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
