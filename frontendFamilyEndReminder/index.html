@@ -18,6 +18,7 @@
         <input type="text" id="email" placeholder="Email ID">
         <input type="text" id="relation" placeholder="Relation">
         <button onclick="addMember()">Add Member</button>
+        <p id="memberMessage" class="message"></p>
     </div>
 
     <div class="card">
@@ -26,44 +27,59 @@
         <input type="date" id="eventDate">
         <input type="text" id="memberId" placeholder="Member ID">
         <button onclick="addEvent()">Add Event</button>
+        <p id="eventMessage" class="message"></p>
     </div>
 </div>
 
 <script>
-const BASE_URL = "https://bubbly-passion-production-3b11.up.railway.app"; // <-- add this
+const BASE_URL = "https://bubbly-passion-production-3b11.up.railway.app";
 
 function addMember() {
     let name = document.getElementById("name").value;
     let email = document.getElementById("email").value;
     let relation = document.getElementById("relation").value;
+    let msgEl = document.getElementById("memberMessage");
 
-    fetch(`${BASE_URL}/add/familymember`, {   // <-- update URL
+    fetch(`${BASE_URL}/add/familymember`, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: `name=${name}&EmailId=${email}&Relation=${relation}`
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `name=${encodeURIComponent(name)}&EmailId=${encodeURIComponent(email)}&Relation=${encodeURIComponent(relation)}`
     })
     .then(res => res.text())
-    .then(data => alert(data))
-    .catch(err => console.error(err));
+    .then(data => {
+        msgEl.textContent = data;
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("relation").value = "";
+    })
+    .catch(err => {
+        msgEl.textContent = "Error submitting data";
+        console.error("Fetch error:", err);
+    });
 }
 
 function addEvent() {
     let eventName = document.getElementById("eventName").value;
     let eventDate = document.getElementById("eventDate").value;
     let memberId = document.getElementById("memberId").value;
+    let msgEl = document.getElementById("eventMessage");
 
-    fetch(`${BASE_URL}/addEvent`, {   // <-- update URL
+    fetch(`${BASE_URL}/addEvent`, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: `eventName=${eventName}&eventDate=${eventDate}&memberId=${memberId}`
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `eventName=${encodeURIComponent(eventName)}&eventDate=${encodeURIComponent(eventDate)}&memberId=${encodeURIComponent(memberId)}`
     })
     .then(res => res.text())
-    .then(data => alert(data))
-    .catch(err => console.error(err));
+    .then(data => {
+        msgEl.textContent = data;
+        document.getElementById("eventName").value = "";
+        document.getElementById("eventDate").value = "";
+        document.getElementById("memberId").value = "";
+    })
+    .catch(err => {
+        msgEl.textContent = "Error submitting data";
+        console.error("Fetch error:", err);
+    });
 }
 </script>
 
