@@ -22,15 +22,15 @@ familyService familyService;
         return "Application Running";
     }
 
-    @GetMapping("familyMem")
+    @GetMapping("https://family-event-reminder-3mot.vercel.app/familyMem")
     public List<familyMember> availablefamilyMember(){
     return familyService.availablefamilyMember();
 }
-@GetMapping("familyevent")
+@GetMapping("https://family-event-reminder-3mot.vercel.app/familyevent")
     public List<familyEvent>availablefamilyEvent(){
     return familyService.availablefamilyEvent();
 }
-@PostMapping("/add/familymember")
+@PostMapping("https://family-event-reminder-3mot.vercel.app//add/familymember")
 public String addMembers(@RequestParam("name") String name,
                          @RequestParam("EmailId") String emailId,
                          @RequestParam("Relation") String Relation) {
@@ -38,7 +38,7 @@ public String addMembers(@RequestParam("name") String name,
     return "congrets " + name + " added";
 
 }
-    @PostMapping("/addEvent")
+    @PostMapping("https://family-event-reminder-3mot.vercel.app//addEvent")
     public String addEvent(@RequestParam("eventName") String eventName,
                            @RequestParam("eventDate") String eventDate,
                            @RequestParam("memberId") Long memberId) {
